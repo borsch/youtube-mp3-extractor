@@ -2,6 +2,11 @@
 <head>
     <title>YouTube MP3 extractor | borsch</title>
     <link rel="stylesheet" href="assets/style.css" />
+    <style>
+        .form {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 
@@ -16,7 +21,7 @@
 <script src="assets/utils.js"></script>
 <script>
     const CLIENT_KEY = 'AIzaSyDKc2-yxVSvenl14tCDosBmKrpQrP8usrY';
-    const PER_PAGE = 5;
+    const PER_PAGE = 50;
 
     $(function(){
         var params = get_url_params(),
@@ -44,9 +49,7 @@
                     if (response) {
                         if (response.items) {
                             $.each(response.items, function(i, item){
-                                var block = '<div><h3>' + item.snippet.title + '</h3>' + generate_iframe(item.snippet.resourceId.videoId) + '</div>';
-
-                                $message.append(block);
+                                $message.append(video_block(item.snippet.title, item.snippet.resourceId.videoId));
                             });
                         }
 
@@ -70,6 +73,27 @@
             });
         }
     });
+
+    function video_block(title, video_id) {
+        var $block = $( '<div>' +
+                            '<div>' +
+                                '<p style="float: left;">' +
+                                    title +
+                                '</p>' +
+                                '<p style="float: right;">' +
+                                    '<button class="load-button" data-video="' + video_id + '">Load</button>' +
+                                '</p>' +
+                            '</div>' +
+                            '<div style="clear: both;"></div>' +
+                            '<div class="iframe"></div>' +
+                        '</div>');
+
+        $block.find('.load-button').click(function(){
+            $block.find('.iframe').html(generate_iframe($(this).data('video')));
+        });
+
+        return $block;
+    }
 </script>
 
 </body>

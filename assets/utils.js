@@ -15,5 +15,5 @@ function get_url_params() {
 }
 
 function generate_iframe(video_id) {
-    return '<iframe class="button-api-frame" src="https://youtubemp3api.com/@api/button/mp3/' + video_id + '" width="800px" height="150px" allowtransparency="true" scrolling="no" style="border:none"></iframe>'
+    return '<iframe class="button-api-frame" src="https://youtubemp3api.com/@api/button/mp3/' + video_id + '" allowtransparency="true" scrolling="no"></iframe>'
 }
