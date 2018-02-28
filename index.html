@@ -27,7 +27,7 @@
 				if (response) {
 					if (response.items) {
 						$.each(response.items, function(i, item){
-							var block = '<div><h3>' + item.title + '</h3>' + generate_iframe(item.resourceId.videoId) + '</div>';
+							var block = '<div><h3>' + item.snippet.title + '</h3>' + generate_iframe(item.snippet.resourceId.videoId) + '</div>';
 
 							$('#container').append(block);
 						});
