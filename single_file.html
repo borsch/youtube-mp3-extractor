@@ -15,16 +15,35 @@
 <script src="assets/jquery.min.js"></script>
 <script src="assets/utils.js"></script>
 <script>
+    const CLIENT_KEY = 'AIzaSyDKc2-yxVSvenl14tCDosBmKrpQrP8usrY';
+
     $(function(){
-        var params = get_url_params();
+        var params = get_url_params(),
+            $message = $('#message');
 
         if (!params.video_id) {
-            $('#message').html('Video id is required');
+            $message.html('Video id is required');
 
             return;
         }
 
-        $('#message').html(generate_iframe(params.video_id));
+        $.ajax({
+            url: 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=' + params.video_id + '&fields=items%2Fsnippet%2Ftitle&key=' + CLIENT_KEY,
+            success: function(response) {
+                if (response) {
+                    if (response.items) {
+                        $.each(response.items, function(i, item){
+                            $message.append(video_block(item.snippet.title, params.video_id));
+                        });
+                    }
+                } else {
+                    $message.html('Can not get info about video');
+                }
+            },
+            error: function() {
+                $message.html('Can not get info about video');
+            }
+        });
     });
 </script>
 

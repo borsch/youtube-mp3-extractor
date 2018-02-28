@@ -73,27 +73,6 @@
             });
         }
     });
-
-    function video_block(title, video_id) {
-        var $block = $( '<div>' +
-                            '<div>' +
-                                '<p style="float: left;">' +
-                                    title +
-                                '</p>' +
-                                '<p style="float: right;">' +
-                                    '<button class="load-button" data-video="' + video_id + '">Load</button>' +
-                                '</p>' +
-                            '</div>' +
-                            '<div style="clear: both;"></div>' +
-                            '<div class="iframe"></div>' +
-                        '</div>');
-
-        $block.find('.load-button').click(function(){
-            $block.find('.iframe').html(generate_iframe($(this).data('video')));
-        });
-
-        return $block;
-    }
 </script>
 
 </body>
