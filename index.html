@@ -1,47 +1,25 @@
 <html>
 <head>
 	<title>YouTube MP3 extractor | borsch</title>
+	<link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
 
-<div id="container">
-
+<div class="login-page">
+	<h1><a href="/">YouTube MP3 extractor</a></h1>
+	<div class="form">
+		<h2>Download MP3 file from single video</h2>
+		<form class="register-form" action="/single_file.html" method="get">
+			<input type="text" name="video_id" placeholder="YouTube video id" />
+			<button>Extract MP3</button>
+		</form>
+		<h2>Extract all MP3 files from playlist</h2>
+		<form class="register-form" action="/playlist.html" method="get">
+			<input type="text" name="play_list_id" placeholder="YouTube playlist id" />
+			<button>Extract MP3</button>
+		</form>
+	</div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-	const CLIENT_KEY = 'AIzaSyDKc2-yxVSvenl14tCDosBmKrpQrP8usrY';
-
-	var $container = $('#container');
-
-	process_playlist('RDXclXvB1Gmnc');
-
-	function process_playlist(playlist_id) {
-		process_playlist_part(playlist_id, 0);
-	}
-
-	function process_playlist_part(playlist_id, offset) {
-		$.ajax({
-			url: 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + playlist_id + '&key=' + CLIENT_KEY + '&maxResults=50',
-			success: function(response) {
-				if (response) {
-					if (response.items) {
-						$.each(response.items, function(i, item){
-							var block = '<div><h3>' + item.snippet.title + '</h3>' + generate_iframe(item.snippet.resourceId.videoId) + '</div>';
-
-							$('#container').append(block);
-						});
-					}
-				} else {
-					alert('error');
-				}
-			}
-		});
-	}
-
-	function generate_iframe(video_id) {
-		return '<iframe class="button-api-frame" src="https://youtubemp3api.com/@api/button/mp3/' + video_id + '" width="800px" height="150px" allowtransparency="true" scrolling="no" style="border:none"></iframe>'
-	}
-</script>
-
-</body></html>
+</body>
+</html>
